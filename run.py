@@ -97,9 +97,15 @@ game_over = False
 while not game_over:
     print_hangman(wrong)
     
-    user_input = input("Enter a letter:")
+    user_letter = input("Enter a letter:")
     
-    if not user_input:
+    if not user_letter:
         print("That's not a letter. Please enter a letter.")
     else:
-        pass
+        letter = user_letter[0].upper()
+        if letter in random_word:
+            for x in range(len(random_word)):
+                if random_word[x] == letter:
+                    guesses[x] = letter
+            if "_" not in guesses:
+                game_over = True
