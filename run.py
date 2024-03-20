@@ -100,7 +100,7 @@ while not game_over:
     user_letter = input("Enter a letter:")
     
     if not user_letter:
-        print("That's not a letter. Please enter a letter.")
+        print("That's not a letter. Please, enter a letter.")
     else:
         letter = user_letter[0].upper()
         if letter in random_word:
@@ -109,3 +109,10 @@ while not game_over:
                     guesses[x] = letter
             if "_" not in guesses:
                 game_over = True
+        else: 
+            attempts_left -= 1
+            wrong += 1
+            print("Sorry, there is no such letter in this word!")
+            if wrong == 6:
+                game_over = True
+                
