@@ -104,6 +104,8 @@ while not game_over:
     print(f"You entered the letter: {user_letter}") 
     if not user_letter.isalpha() :
         print("That's not a letter. Please, enter a letter!")
+    elif user_letter in used_letters:
+        print("You have already entered this letter. Please, enter another letter!")
 
     else:
         used_letters.add(user_letter)
