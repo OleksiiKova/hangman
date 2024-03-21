@@ -8,9 +8,12 @@ list_of_words = ["Apple", "Banana", "Orange", "Pineapple", "Strawberry", "Waterm
 guesses = []
 attempts_left = 6
 wrong = 0
+used_letters = set()
 
 # Choose random word from list
 random_word = random.choice(list_of_words).upper()
+
+print("WELCOME TO THE HANGMAN GAME!")
 
 print(random_word)
 
@@ -97,12 +100,16 @@ game_over = False
 while not game_over:
     print_hangman(wrong)
     
-    user_letter = input("Enter a letter: \n")
-    
-    if not user_letter:
-        print("That's not a letter. Please, enter a letter.")
+    user_letter = input("Enter a letter: \n").upper()
+    print(f"You entered the letter: {user_letter}") 
+    if not user_letter.isalpha() :
+        print("That's not a letter. Please, enter a letter!")
+
     else:
-        letter = user_letter[0].upper()
+        used_letters.add(user_letter)
+        letter = user_letter[0]
+        
+        
         if letter in random_word:
             for x in range(len(random_word)):
                 if random_word[x] == letter:
