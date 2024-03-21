@@ -101,12 +101,13 @@ while not game_over:
     print_hangman(wrong)
     
     user_letter = input("Enter a letter: \n").upper()
-    print(f"You entered the letter: {user_letter}") 
+    print(f"You entered: {user_letter}") 
     if not user_letter.isalpha() :
         print("That's not a letter. Please, enter a letter!")
     elif user_letter in used_letters:
         print("You have already entered this letter. Please, enter another letter!")
-
+    elif len(user_letter) != 1:
+        print("Please enter just one letter!")
     else:
         used_letters.add(user_letter)
         letter = user_letter[0]
