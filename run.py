@@ -97,7 +97,7 @@ game_over = False
 while not game_over:
     print_hangman(wrong)
     
-    user_letter = input("Enter a letter:")
+    user_letter = input("Enter a letter: \n")
     
     if not user_letter:
         print("That's not a letter. Please, enter a letter.")
@@ -116,3 +116,10 @@ while not game_over:
             if wrong == 6:
                 game_over = True
                 
+if wrong == 6:
+    print_hangman(wrong)
+    print(f"Game Over!")
+    print(f"Sorry, you lost. The word was {random_word}!")
+else:
+    print("Congratulations, you won!")
+    print(f"The word was {random_word}!")
