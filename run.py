@@ -8,16 +8,17 @@ list_of_words = ["Apple", "Banana", "Orange", "Pineapple", "Strawberry", "Waterm
 guesses = []
 attempts_left = 6
 wrong = 0
-used_letters = set()
+used_letters = []
+
 
 # Choose random word from list
 random_word = random.choice(list_of_words).upper()
 
 print("WELCOME TO THE HANGMAN GAME!")
 
-print(random_word)
 
-def print_hangman(wrong):
+
+def print_hangman():
     """
     Print hangman depending on the number of wrong answers.
     """
@@ -89,47 +90,54 @@ def print_hangman(wrong):
     for element in guesses:
         print(f"{element} ", end='')
     print(f"\nYou have {attempts_left} guess(es) left")           
-        
-# Encrypted print of a random word using underscore
-for x in random_word:
-    guesses.append("_")
-
     
-game_over = False
-
-while not game_over:
-    print_hangman(wrong)
+      
+def main():
+    print(random_word)
     
-    user_letter = input("Enter a letter: \n").upper()
-    print(f"You entered: {user_letter}") 
-    if not user_letter.isalpha() :
-        print("That's not a letter. Please, enter a letter!")
-    elif user_letter in used_letters:
-        print("You have already entered this letter. Please, enter another letter!")
-    elif len(user_letter) != 1:
-        print("Please enter just one letter!")
-    else:
-        used_letters.add(user_letter)
-        letter = user_letter[0]
+    global wrong
+    global attempts_left
+    
+    # Encrypted print of a random word using underscore
+    for x in random_word:
+        guesses.append("_")
+
+    while attempts_left > 0:
+        print_hangman()
         
+        user_letter = input("Enter a letter: \n").upper()
         
-        if letter in random_word:
+        print(f"You entered: {user_letter}") 
+        
+        if not user_letter.isalpha() :
+            print("That's not a letter. Please, enter a letter!")
+            continue
+        if user_letter in used_letters:
+            print("You have already entered this letter. Please, enter another letter!")
+            continue
+        if len(user_letter) != 1:
+            print("Please enter just one letter!")
+            continue
+        
+        used_letters.append(user_letter)
+            
+        if user_letter in random_word:
             for x in range(len(random_word)):
-                if random_word[x] == letter:
-                    guesses[x] = letter
+                if random_word[x] == user_letter:
+                    guesses[x] = user_letter
             if "_" not in guesses:
-                game_over = True
+                print("Congratulations, you won!")
+                print(f"The word was {random_word}!")
+                break
         else: 
             attempts_left -= 1
             wrong += 1
             print("Sorry, there is no such letter in this word!")
-            if wrong == 6:
-                game_over = True
-                
-if wrong == 6:
-    print_hangman(wrong)
-    print(f"Game Over!")
-    print(f"Sorry, you lost. The word was {random_word}!")
-else:
-    print("Congratulations, you won!")
-    print(f"The word was {random_word}!")
+
+    if wrong == 6:
+        print_hangman()
+        print(f"Game Over!")
+        print(f"Sorry, you lost. The word was {random_word}!")
+    
+      
+main()
