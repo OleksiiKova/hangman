@@ -16,7 +16,18 @@ random_word = random.choice(list_of_words).upper()
 
 print("WELCOME TO THE HANGMAN GAME!")
 
-
+def get_user_letter():
+    while True:
+        user_letter = input("Enter a letter: \n").upper()
+        
+        if not user_letter.isalpha() :
+            print("That's not a letter. Please, enter a letter!")
+        elif user_letter in used_letters:
+            print("You have already entered this letter. Please, enter another letter!")
+        elif len(user_letter) != 1:
+            print("Please enter just one letter!")
+        else:
+            return user_letter
 
 def print_hangman():
     """
@@ -105,19 +116,7 @@ def main():
     while attempts_left > 0:
         print_hangman()
         
-        user_letter = input("Enter a letter: \n").upper()
-        
-        print(f"You entered: {user_letter}") 
-        
-        if not user_letter.isalpha() :
-            print("That's not a letter. Please, enter a letter!")
-            continue
-        if user_letter in used_letters:
-            print("You have already entered this letter. Please, enter another letter!")
-            continue
-        if len(user_letter) != 1:
-            print("Please enter just one letter!")
-            continue
+        user_letter = get_user_letter()
         
         used_letters.append(user_letter)
             
