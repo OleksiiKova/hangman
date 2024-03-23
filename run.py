@@ -10,24 +10,26 @@ attempts_left = 6
 wrong = 0
 used_letters = []
 
-
-# Choose random word from list
+# Choose random word from the list of words
 random_word = random.choice(list_of_words).upper()
 
-print("WELCOME TO THE HANGMAN GAME!")
+# Encrypt the random word using underscores
+for x in random_word:
+    guesses.append("_")
 
 def get_user_letter():
     while True:
-        user_letter = input("Enter a letter: \n").upper()
+        user_input = input("Enter a letter: \n").upper()
         
-        if not user_letter.isalpha() :
+        if not user_input.isalpha() :
             print("That's not a letter. Please, enter a letter!")
-        elif user_letter in used_letters:
+        elif user_input in used_letters:
             print("You have already entered this letter. Please, enter another letter!")
-        elif len(user_letter) != 1:
+        elif len(user_input) != 1:
             print("Please enter just one letter!")
         else:
-            return user_letter
+            used_letters.append(user_input)
+            return user_input
 
 def print_hangman():
     """
@@ -97,36 +99,32 @@ def print_hangman():
         print("      |          ")
         print("     /|\         ")
         
+def print_attempts_left():
     print("Word: ", end='')
     for element in guesses:
         print(f"{element} ", end='')
     print(f"\nYou have {attempts_left} guess(es) left")           
-    
       
-def main():
+def game():
     print(random_word)
     
     global wrong
     global attempts_left
-    
-    # Encrypted print of a random word using underscore
-    for x in random_word:
-        guesses.append("_")
 
     while attempts_left > 0:
         print_hangman()
+        print_attempts_left()
         
         user_letter = get_user_letter()
-        
-        used_letters.append(user_letter)
             
         if user_letter in random_word:
             for x in range(len(random_word)):
                 if random_word[x] == user_letter:
                     guesses[x] = user_letter
             if "_" not in guesses:
-                print("Congratulations, you won!")
-                print(f"The word was {random_word}!")
+                print("")
+                print("CONGRATULATIONS, YOU WON!")
+                print(f"THE WORD WAS {random_word}!")
                 break
         else: 
             attempts_left -= 1
@@ -135,8 +133,23 @@ def main():
 
     if wrong == 6:
         print_hangman()
-        print(f"Game Over!")
-        print(f"Sorry, you lost. The word was {random_word}!")
+        print("")
+        print(f"GAME OVER!")
+        print(f"YOU LOST! THE WORD WAS {random_word}!")
     
-      
-main()
+
+print("WELCOME TO THE HANGMAN GAME!")
+print("")
+print("Enter 1 to start game")
+print("Enter 2 to display the leaderboard")
+def start_menu():
+    start_input = int(input())
+    if start_input == 1:
+        game()
+    elif start_input == 2:
+        pass
+    else:
+        print("Please enter 1 or 2")
+        start_menu()
+start_menu()
+# game()
