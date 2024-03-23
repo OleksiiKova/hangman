@@ -14,8 +14,6 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('hangman')
 
 scores = SHEET.worksheet('scores')
-# data = scores.get_all_values()
-# print(data)
 
 # List of words for Hangman game
 list_of_words = ["Apple", "Banana", "Orange", "Pineapple", "Strawberry", "Watermelon", "Mango", "Grape", "Cherry", "Kiwi", 
@@ -27,6 +25,7 @@ attempts_left = 6
 wrong = 0
 used_letters = []
 random_word = random.choice(list_of_words).upper()
+username = ""
 
 def get_user_letter():
     """
@@ -128,6 +127,8 @@ def game():
     """
     global wrong
     global attempts_left
+    global username
+    
     
     print(random_word)
     
@@ -149,6 +150,7 @@ def game():
                 print("")
                 print("CONGRATULATIONS, YOU WON!")
                 print(f"THE WORD WAS {random_word}!")
+                update_score()
                 data_reset()
                 start_menu() 
         else: 
@@ -196,20 +198,12 @@ def data_reset():
     wrong = 0
     used_letters = []
 
-def main():
-    print("WELCOME TO THE HANGMAN GAME!")
-    print("")
-    get_user_name()
-    print("")
-    start_menu()
-
-
-
 def get_user_name():
     """
     Get user name and record it in the sheet, 
     if there is no such name yet.
     """
+    global username
     username = input("Please, enter your name: ")
     name_column = scores.col_values(1)
     if username in name_column:
@@ -227,5 +221,24 @@ def get_user_name():
         validate_user_choice()
     else:
         scores.append_row([username,0])
+    return username
 
-main()
+def update_score():
+    """
+    Get the score from the sheet and 
+    update score when the user guessed the word.
+    """
+    global name_column, score_column
+    name_column = scores.col_values(1)
+    score_column = scores.col_values(2)
+    
+    user_index = name_column.index(username) + 1
+    current_score = int(score_column[user_index - 1])
+    new_score = current_score + 1
+    scores.update_cell(user_index, 2, str(new_score))
+
+print("WELCOME TO THE HANGMAN GAME!")
+print("")
+get_user_name()
+print("")
+start_menu()
