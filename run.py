@@ -1,6 +1,7 @@
 import random
 import gspread
 from google.oauth2.service_account import Credentials
+from tabulate import tabulate
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -13,7 +14,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('hangman')
 
-scores = SHEET.worksheet('scores')
+scores_sheet = SHEET.worksheet('scores')
 
 # List of words for Hangman game
 list_of_words = ["Apple", "Banana", "Orange", "Pineapple", "Strawberry", "Watermelon", "Mango", "Grape", "Cherry", "Kiwi", 
@@ -125,10 +126,7 @@ def game():
     """
     Start the Hangman game 
     """
-    global wrong
-    global attempts_left
-    global username
-    
+    global wrong, attempts_left, username
     
     print(random_word)
     
@@ -150,6 +148,7 @@ def game():
                 print("")
                 print("CONGRATULATIONS, YOU WON!")
                 print(f"THE WORD WAS {random_word}!")
+                print("")
                 update_score()
                 data_reset()
                 start_menu() 
@@ -163,6 +162,7 @@ def game():
         print("")  
         print(f"YOU LOST! THE WORD WAS {random_word}!")
         print(f"GAME OVER!")
+        print("")
         data_reset()
         start_menu() 
     
@@ -171,13 +171,13 @@ def start_menu():
     Main menu, where the user can select what wants to do: 
     start the game or see the leaderboard.
     """
-    print("Enter 1 to start new game")
-    print("Enter 2 to display the leaderboard")
-    start_input = int(input())
-    if start_input == 1:
+    print("Press 1 - start new game")
+    print("Press 2 - display the leaderboard")
+    start_input = input()
+    if start_input == "1":
         game()
-    elif start_input == 2:
-        pass
+    elif start_input == "2":
+        print_leaderboard()
     else:
         print("Please enter 1 or 2")
         start_menu()
@@ -205,7 +205,7 @@ def get_user_name():
     """
     global username
     username = input("Please, enter your name: ")
-    name_column = scores.col_values(1)
+    name_column = scores_sheet.col_values(1)
     if username in name_column:
         print(f"Name {username} is already exists. Do you want to continue progress?(y/n)")
         
@@ -220,7 +220,7 @@ def get_user_name():
                 validate_user_choice()
         validate_user_choice()
     else:
-        scores.append_row([username,0])
+        scores_sheet.append_row([username,0])
     return username
 
 def update_score():
@@ -229,13 +229,22 @@ def update_score():
     update score when the user guessed the word.
     """
     global name_column, score_column
-    name_column = scores.col_values(1)
-    score_column = scores.col_values(2)
+    name_column = scores_sheet.col_values(1)
+    score_column = scores_sheet.col_values(2)
     
     user_index = name_column.index(username) + 1
     current_score = int(score_column[user_index - 1])
     new_score = current_score + 1
-    scores.update_cell(user_index, 2, str(new_score))
+    scores_sheet.update_cell(user_index, 2, str(new_score))
+
+def print_leaderboard():
+    """
+    Print leader board, sorted by descending scores.
+    """
+    all_rows = scores_sheet.get_all_values()
+    data = [(row[0], int(row[1]) if i != 0 else row[1]) for i, row in enumerate(all_rows)]
+    sorted_data = sorted(data[1:], key=lambda x: x[1], reverse=True)
+    print(tabulate(sorted_data, headers=["Name", "Score"]))
 
 print("WELCOME TO THE HANGMAN GAME!")
 print("")
