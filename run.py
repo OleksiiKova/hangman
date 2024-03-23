@@ -182,7 +182,12 @@ def data_reset():
 def main():
     print("WELCOME TO THE HANGMAN GAME!")
     print("")
-    
+    get_username()
+    print("")
     start_menu()
+
+def get_username():
+    username = input("Please, enter your name: ")
+    return username
 
 main()
