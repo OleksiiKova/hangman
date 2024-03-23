@@ -9,15 +9,12 @@ guesses = []
 attempts_left = 6
 wrong = 0
 used_letters = []
-
-# Choose random word from the list of words
 random_word = random.choice(list_of_words).upper()
 
-# Encrypt the random word using underscores
-for x in random_word:
-    guesses.append("_")
-
 def get_user_letter():
+    """
+    Get input from еру user and validate it.
+    """
     while True:
         user_input = input("Enter a letter: \n").upper()
         
@@ -100,17 +97,27 @@ def print_hangman():
         print("     /|\         ")
         
 def print_attempts_left():
+    """
+    Print message how many attempts left
+    """
     print("Word: ", end='')
     for element in guesses:
         print(f"{element} ", end='')
     print(f"\nYou have {attempts_left} guess(es) left")           
       
 def game():
-    print(random_word)
-    
+    """
+    Start the Hangman game 
+    """
     global wrong
     global attempts_left
-
+    
+    print(random_word)
+    
+    # Encrypt the random word using underscores
+    for x in random_word:
+        guesses.append("_")
+    
     while attempts_left > 0:
         print_hangman()
         print_attempts_left()
@@ -125,7 +132,8 @@ def game():
                 print("")
                 print("CONGRATULATIONS, YOU WON!")
                 print(f"THE WORD WAS {random_word}!")
-                break
+                data_reset()
+                start_menu() 
         else: 
             attempts_left -= 1
             wrong += 1
@@ -133,16 +141,19 @@ def game():
 
     if wrong == 6:
         print_hangman()
-        print("")
-        print(f"GAME OVER!")
+        print("")  
         print(f"YOU LOST! THE WORD WAS {random_word}!")
+        print(f"GAME OVER!")
+        data_reset()
+        start_menu() 
     
-
-print("WELCOME TO THE HANGMAN GAME!")
-print("")
-print("Enter 1 to start game")
-print("Enter 2 to display the leaderboard")
 def start_menu():
+    """
+    Main menu, where the user can select what wants to do: 
+    start the game or see the leaderboard.
+    """
+    print("Enter 1 to start new game")
+    print("Enter 2 to display the leaderboard")
     start_input = int(input())
     if start_input == 1:
         game()
@@ -151,5 +162,27 @@ def start_menu():
     else:
         print("Please enter 1 or 2")
         start_menu()
-start_menu()
-# game()
+
+def data_reset():
+    """
+    Reset the data before new game.
+    If the game will run without restart the program.
+    """
+    global guesses
+    global attempts_left
+    global wrong
+    global used_letters
+    global random_word
+    random_word = random.choice(list_of_words).upper()
+    guesses = []
+    attempts_left = 6
+    wrong = 0
+    used_letters = []
+
+def main():
+    print("WELCOME TO THE HANGMAN GAME!")
+    print("")
+    
+    start_menu()
+
+main()
