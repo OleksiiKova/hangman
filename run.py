@@ -14,8 +14,8 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('hangman')
 
 scores = SHEET.worksheet('scores')
-data = scores.get_all_values()
-print(data)
+# data = scores.get_all_values()
+# print(data)
 
 # List of words for Hangman game
 list_of_words = ["Apple", "Banana", "Orange", "Pineapple", "Strawberry", "Watermelon", "Mango", "Grape", "Cherry", "Kiwi", 
@@ -199,12 +199,33 @@ def data_reset():
 def main():
     print("WELCOME TO THE HANGMAN GAME!")
     print("")
-    get_username()
+    get_user_name()
     print("")
     start_menu()
 
-def get_username():
-    username = input("Please, enter your name: ")
-    return username
 
-# main()
+
+def get_user_name():
+    """
+    Get user name and record it in the sheet, 
+    if there is no such name yet.
+    """
+    username = input("Please, enter your name: ")
+    name_column = scores.col_values(1)
+    if username in name_column:
+        print(f"Name {username} is already exists. Do you want to continue progress?(y/n)")
+        
+        def validate_user_choice():
+            user_choice = input("").upper()
+            if user_choice == "Y":
+                start_menu()
+            if user_choice == "N":
+                get_user_name()
+            else:
+                print("To make choice, print 'y' or 'n'!")
+                validate_user_choice()
+        validate_user_choice()
+    else:
+        scores.append_row([username,0])
+
+main()
