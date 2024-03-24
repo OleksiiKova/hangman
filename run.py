@@ -65,7 +65,7 @@ def print_hangman():
     """
     Print hangman depending on the number of wrong answers.
     """
-    print("")
+    print("----------------------------")
     if(wrong == 0):
         print("      ┍——————┑   ")
         print("      |      |   ")
@@ -138,7 +138,7 @@ def print_attempts_left():
     print("Word: ", end='')
     for element in guesses:
         print(f"{element} ", end='')
-    print(f"\nYou have {attempts_left} guess(es) left")           
+    print(f"\nYou have {attempts_left} guess(es) left.")           
       
 def game():
     """
@@ -224,7 +224,7 @@ def get_user_name():
     if there is no such name yet.
     """
     global username
-    username = input("\nPlease, enter your name: ")
+    username = input("\nPlease, enter your name: \n")
     name_column = scores_sheet.col_values(1)
     if username in name_column:
         print(f"\nName {username} is already exists. Do you want to continue the progress? (Y/N)")
