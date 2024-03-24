@@ -21,6 +21,8 @@ list_of_words = ["Apple", "Banana", "Orange", "Pineapple", "Strawberry", "Waterm
               "Lemon", "Peach", "Pear", "Raspberry", "Blueberry", "Carrot", "Potato", "Tomato", "Cucumber", "Broccoli", 
               "Spinach", "Lettuce", "Pepper", "Onion", "Garlic", "Cauliflower", "Zucchini", "Eggplant", "Pumpkin", "Radish"]
 
+
+
 guesses = []
 attempts_left = 6
 wrong = 0
@@ -49,6 +51,7 @@ def print_hangman():
     """
     Print hangman depending on the number of wrong answers.
     """
+    print("")
     if(wrong == 0):
         print("      ┍——————┑   ")
         print("      |      |   ")
@@ -148,7 +151,6 @@ def game():
                 print("")
                 print("CONGRATULATIONS, YOU WON!")
                 print(f"THE WORD WAS {random_word}!")
-                print("")
                 update_score()
                 data_reset()
                 start_menu() 
@@ -162,7 +164,6 @@ def game():
         print("")  
         print(f"YOU LOST! THE WORD WAS {random_word}!")
         print(f"GAME OVER!")
-        print("")
         data_reset()
         start_menu() 
     
@@ -171,16 +172,23 @@ def start_menu():
     Main menu, where the user can select what wants to do: 
     start the game or see the leaderboard.
     """
-    print("Press 1 - start new game")
-    print("Press 2 - display the leaderboard")
-    start_input = input()
-    if start_input == "1":
-        game()
-    elif start_input == "2":
-        print_leaderboard()
-    else:
-        print("Please enter 1 or 2")
-        start_menu()
+    while True:
+        print(f"\n{username}, to continue please enter:")
+        print("1 START A NEW GAME")
+        print("2 VIEW THE LEADERBOARD")
+        print("3 CHANGE A USER")
+        start_input = input("")
+        if start_input == "1":
+            game()
+            break
+        elif start_input == "2":
+            print_leaderboard()
+            break
+        elif start_input == "3":
+            main()
+        else:
+            print("\n Please enter the correct input")
+            start_menu()
 
 def data_reset():
     """
@@ -204,10 +212,10 @@ def get_user_name():
     if there is no such name yet.
     """
     global username
-    username = input("Please, enter your name: ")
+    username = input("\nPlease, enter your name: ")
     name_column = scores_sheet.col_values(1)
     if username in name_column:
-        print(f"Name {username} is already exists. Do you want to continue progress?(y/n)")
+        print(f"\nName {username} is already exists. Do you want to continue the progress? (Y/N)")
         
         def validate_user_choice():
             user_choice = input("").upper()
@@ -216,7 +224,7 @@ def get_user_name():
             if user_choice == "N":
                 get_user_name()
             else:
-                print("To make choice, print 'y' or 'n'!")
+                print("To make choice, print 'Y' or 'N'!")
                 validate_user_choice()
         validate_user_choice()
     else:
@@ -239,15 +247,18 @@ def update_score():
 
 def print_leaderboard():
     """
-    Print leader board, sorted by descending scores.
+    Print leaderboard, sorted by descending scores.
     """
+    print("")
     all_rows = scores_sheet.get_all_values()
     data = [(row[0], int(row[1]) if i != 0 else row[1]) for i, row in enumerate(all_rows)]
     sorted_data = sorted(data[1:], key=lambda x: x[1], reverse=True)
     print(tabulate(sorted_data, headers=["Name", "Score"]))
-
-print("WELCOME TO THE HANGMAN GAME!")
-print("")
-get_user_name()
-print("")
-start_menu()
+    start_menu()
+      
+def main():
+    print("WELCOME TO THE HANGMAN GAME!")
+    get_user_name()
+    start_menu()
+    
+main()
