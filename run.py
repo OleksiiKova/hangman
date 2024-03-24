@@ -17,11 +17,24 @@ SHEET = GSPREAD_CLIENT.open('hangman')
 scores_sheet = SHEET.worksheet('scores')
 
 # List of words for Hangman game
-list_of_words = ["Apple", "Banana", "Orange", "Pineapple", "Strawberry", "Watermelon", "Mango", "Grape", "Cherry", "Kiwi", 
-              "Lemon", "Peach", "Pear", "Raspberry", "Blueberry", "Carrot", "Potato", "Tomato", "Cucumber", "Broccoli", 
-              "Spinach", "Lettuce", "Pepper", "Onion", "Garlic", "Cauliflower", "Zucchini", "Eggplant", "Pumpkin", "Radish"]
+# list_of_words = ["Apple", "Banana", "Orange", "Pineapple", "Strawberry", "Watermelon", "Mango", "Grape", "Cherry", "Kiwi", 
+#               "Lemon", "Peach", "Pear", "Raspberry", "Blueberry", "Carrot", "Potato", "Tomato", "Cucumber", "Broccoli", 
+#               "Spinach", "Lettuce", "Pepper", "Onion", "Garlic", "Cauliflower", "Zucchini", "Eggplant", "Pumpkin", "Radish"]
 
-
+list_of_words = {
+    "fruit": ["Apple", "Banana", "Orange", "Pineapple", "Strawberry", "Watermelon", "Mango", "Grape", "Cherry", "Kiwi", 
+                    "Lemon", "Peach", "Pear", "Raspberry", "Blueberry"],
+    "vegetable": ["Carrot", "Potato", "Tomato", "Cucumber", "Broccoli", 
+                    "Spinach", "Lettuce", "Pepper", "Onion", "Garlic", "Cauliflower", "Zucchini", "Eggplant", "Pumpkin", "Radish"],
+    "animal": ["Elephant", "Tiger", "Giraffe", "Lion", "Zebra", "Kangaroo", "Monkey", "Penguin", "Panda", "Dolphin",
+                    "Koala", "Hippo", "Cheetah", "Squirrel", "Crocodile","Ostrich", "Gorilla", "Rhinoceros", "Jaguar", "Buffalo"],
+    "country": ["Canada", "Brazil", "Italy", "Australia", "Japan", "Mexico", "Russia", "France", "India", "Spain",
+                    "China", "Germany", "Argentina", "Egypt", "Thailand", "Greece", "Vietnam", "South Africa", "Turkey", "Nigeria"],
+    "occupation": ["Doctor", "Teacher", "Engineer", "Artist", "Chef", "Pilot", "Scientist", "Musician", "Actor", "Lawyer",
+                    "Nurse", "Architect", "Writer", "Dentist", "Journalist", "Programmer", "Photographer", "Veterinarian", "Firefighter", "Banker"],
+    "colour": ["Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Pink", "Black", "White", "Brown",
+                    "Gray", "Beige", "Cyan", "Magenta", "Teal", "Turquoise", "Lavender", "Maroon", "Indigo", "Violet"]
+}
 
 guesses = []
 attempts_left = 6
