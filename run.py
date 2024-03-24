@@ -40,7 +40,8 @@ guesses = []
 attempts_left = 6
 wrong = 0
 used_letters = []
-random_word = random.choice(list_of_words).upper()
+random_theme = random.choice(list(list_of_words.keys())) 
+random_word = random.choice(list_of_words[random_theme]).upper()
 username = ""
 
 def get_user_letter():
@@ -133,6 +134,7 @@ def print_attempts_left():
     """
     Print message how many attempts left
     """
+    print(f"The hidden word is {random_theme}!")
     print("Word: ", end='')
     for element in guesses:
         print(f"{element} ", end='')
@@ -200,7 +202,7 @@ def start_menu():
         elif start_input == "3":
             main()
         else:
-            print("\n Please enter the correct input")
+            print("\nPlease enter the correct input")
             start_menu()
 
 def data_reset():
@@ -208,12 +210,9 @@ def data_reset():
     Reset the data before new game.
     If the game will run without restart the program.
     """
-    global guesses
-    global attempts_left
-    global wrong
-    global used_letters
-    global random_word
-    random_word = random.choice(list_of_words).upper()
+    global guesses, attempts_left, wrong, used_letters, random_word, random_theme
+    random_theme = random.choice(list(list_of_words.keys())) 
+    random_word = random.choice(list_of_words[random_theme]).upper()
     guesses = []
     attempts_left = 6
     wrong = 0
