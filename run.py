@@ -43,6 +43,20 @@ used_letters = []
 random_theme = random.choice(list(list_of_words.keys())) 
 random_word = random.choice(list_of_words[random_theme]).upper()
 username = ""
+new_score = ""
+
+def print_hangman_logo():
+    logo = """
+  _    _                                         
+ | |  | |                                        
+ | |__| | __ _ _ __   __ _ _ __ ___   __ _ _ __  
+ |  __  |/ _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ 
+ | |  | | (_| | | | | (_| | | | | | | (_| | | | |
+ |_|  |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
+                      __/ |                      
+                     |___/   
+    """
+    print(logo)
 
 def get_user_letter():
     """
@@ -54,7 +68,7 @@ def get_user_letter():
         if not user_input.isalpha() :
             print("That's not a letter. Please, enter a letter!")
         elif user_input in used_letters:
-            print("You have already entered this letter. Please, enter another letter!")
+            print("You've already entered this letter. Please, enter another letter!")
         elif len(user_input) != 1:
             print("Please enter just one letter!")
         else:
@@ -144,7 +158,7 @@ def game():
     """
     Start the Hangman game 
     """
-    global wrong, attempts_left, username
+    global wrong, attempts_left, username, name_column, score_column, new_score
     
     print(random_word)
     
@@ -163,34 +177,32 @@ def game():
                 if random_word[x] == user_letter:
                     guesses[x] = user_letter
             if "_" not in guesses:
-                print("")
-                print("CONGRATULATIONS, YOU WON!")
+                print("\nCONGRATULATIONS, YOU WON!")
                 print(f"THE WORD WAS {random_word}!")
-                update_score()
+                update_score()              
+                print(f"YOUR TOTAL SCORE: {new_score} point(s)!")
                 data_reset()
                 start_menu() 
         else: 
             attempts_left -= 1
             wrong += 1
-            print("Sorry, there is no such letter in this word!")
+            print(f"Sorry, there is no letter '{user_letter}' in this word!")
 
     if wrong == 6:
         print_hangman()
-        print("")  
-        print(f"YOU LOST! THE WORD WAS {random_word}!")
-        print(f"GAME OVER!")
+        print(f"\nYOU LOST! THE WORD WAS {random_word}!")
         data_reset()
         start_menu() 
     
 def start_menu():
     """
     Main menu, where the user can select what wants to do: 
-    start the game or see the leaderboard.
+    (start the game, check the leaderboard or change a user)
     """
     while True:
         print(f"\n{username}, to continue please enter:")
         print("1 START A NEW GAME")
-        print("2 VIEW THE LEADERBOARD")
+        print("2 CHECK THE LEADERBOARD")
         print("3 CHANGE A USER")
         start_input = input("")
         if start_input == "1":
@@ -236,7 +248,7 @@ def get_user_name():
             if user_choice == "N":
                 get_user_name()
             else:
-                print("To make choice, print 'Y' or 'N'!")
+                print("To make choice, enter 'Y' or 'N'!")
                 validate_user_choice()
         validate_user_choice()
     else:
@@ -248,7 +260,7 @@ def update_score():
     Get the score from the sheet and 
     update score when the user guessed the word.
     """
-    global name_column, score_column
+    global name_column, score_column, new_score
     name_column = scores_sheet.col_values(1)
     score_column = scores_sheet.col_values(2)
     
@@ -269,8 +281,10 @@ def print_leaderboard():
     start_menu()
       
 def main():
-    print("WELCOME TO THE HANGMAN GAME!")
+    print_hangman_logo()   
+    print("WELCOME TO THE HANGMAN GAME!") 
     get_user_name()
     start_menu()
     
+
 main()
