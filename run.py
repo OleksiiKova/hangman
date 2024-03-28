@@ -14,8 +14,6 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('hangman')
 
-scores_sheet = SHEET.worksheet('scores')
-
 list_of_words = {
     "fruit": ["Apple", "Banana", "Orange", "Pineapple", "Strawberry", "Watermelon", "Mango", "Grape", "Cherry", "Kiwi", 
                     "Lemon", "Peach", "Pear", "Raspberry", "Blueberry"],
@@ -31,14 +29,13 @@ list_of_words = {
                     "Gray", "Beige", "Cyan", "Magenta", "Teal", "Turquoise", "Lavender", "Maroon", "Indigo", "Violet"]
 }
 
-# guesses = []
-# attempts_left = 6
-# wrong = 0
-# used_letters = []
-# random_theme = random.choice(list(list_of_words.keys())) 
-# random_word = random.choice(list_of_words[random_theme]).upper()
-# username = ""
-# new_score = ""
+scores_sheet = SHEET.worksheet('scores')
+guesses = []
+attempts_left = 6
+wrong = 0
+used_letters = []
+random_theme = random.choice(list(list_of_words.keys())) 
+random_word = random.choice(list_of_words[random_theme]).upper()
 
 def print_hangman_logo():
     """
@@ -56,7 +53,103 @@ def print_hangman_logo():
     """
     print(logo)
 
-def get_user_letter():
+def get_user_name():
+    """
+    Retrieve the user's name and record it in the sheet
+    if it doesn't exist yet.
+    """
+    
+    username = input("\nPlease enter your name: \n").upper()
+    
+    # Check if such a name exists in the game database
+    name_column = scores_sheet.col_values(1) 
+    if username in name_column:
+        # If this name has already been used before, offer to continue the game progress
+        print(f"\nName '{username}' is already exists. Do you want to continue the progress? (Y/N)")
+        while True:
+            user_choice = input("").upper()
+            if user_choice == "Y":
+                start_menu(username)
+                break
+            if user_choice == "N":
+                get_user_name()
+                break
+            else:
+                print("To make choice, enter 'Y' or 'N'!")
+                continue
+    else:
+        # If this name has not been used before, add this username to the game database
+        scores_sheet.append_row([username,0])
+    return username
+
+def start_menu(username):
+    """
+    Main menu, where the user can select what wants to do: 
+    (start the game, check the leaderboard or change a user)
+    """
+    while True:
+        print(f"\n{username}, TO CONTINUE PLEASE ENTER:")
+        print("1 - TO START A NEW GAME")
+        print("2 - TO CHECK THE LEADERBOARD")
+        print("3 - TO CHANGE A USER")
+        start_input = input("")
+        if start_input == "1":
+            game(username, guesses, attempts_left, wrong, random_word)
+            break
+        elif start_input == "2":
+            print_leaderboard(username)
+            break
+        elif start_input == "3":
+            main()
+        else:
+            print("\nPlease enter the correct input!")
+            start_menu(username)    
+
+def game(username, guesses, attempts_left, wrong, random_word):
+    """
+    Start the Hangman game.
+    """    
+    print(random_word)
+    
+    # Encrypt the random word using underscores
+    for x in random_word:
+        guesses.append("_")
+    
+    while attempts_left > 0:
+        print_hangman(wrong)
+        print_info_about_hidden_word(guesses, random_theme, attempts_left)
+        user_letter = get_user_letter(used_letters)
+        
+        # If the entered letter is in the hidden word    
+        if user_letter in random_word:
+            for x in range(len(random_word)):
+                if random_word[x] == user_letter:
+                    guesses[x] = user_letter
+            print(f"Correct! There's letter '{user_letter}' in this word!")
+            
+            # Check if all letters in the hidden are open
+            if "_" not in guesses:
+                print(f"\nCONGRATULATIONS {username}, YOU WON!")
+                print(f"THE WORD WAS {random_word}!")
+                new_score = update_score(username)             
+                print(f"YOUR TOTAL SCORE: {new_score} point(s)!")
+                data_reset()
+                start_menu(username)
+        
+        # If the entered letter isn't in the hidden word           
+        else: 
+            attempts_left -= 1
+            wrong += 1
+            print(f"Sorry, there's no letter '{user_letter}' in this word!")
+            
+    # If all attempts are exhausted the game ends
+    if wrong == 6:
+        print_hangman(wrong)
+        print(f"\n{username}, YOU LOST! THE WORD WAS {random_word}!")
+        data_reset()
+        start_menu(username) 
+
+def get_user_letter(used_letters):
     """
     Get input from the user and validate it.
     """
@@ -79,7 +172,7 @@ def get_user_letter():
         except ValueError as e:
             print(f"\n{e}")
 
-def print_hangman():
+def print_hangman(wrong):
     """
     Print hangman depending on the number of wrong answers.
     """
@@ -148,83 +241,22 @@ def print_hangman():
         print("      |          ")
         print("     /|\         ")
         
-def print_info_about_hidden_word():
+def print_info_about_hidden_word(guesses, random_theme, attempts_left):
     """
     Print message about hidden word: 
     topic, quantity underscores, attemts left.
     """
     # What topic the word relates to
     print(f"The hidden word is {random_theme}!")
+    
     # How many underscores need to print
     print("Word: ", end='')
     for element in guesses:
         print(f"{element} ", end='')
+        
     # How many attemts left
     print(f"\nYou have {attempts_left} guess(es) left.")           
-      
-def game():
-    """
-    Start the Hangman game.
-    """
-    global wrong, attempts_left, username, name_column, score_column, new_score
     
-    data_reset()
-    
-    print(random_word)
-    
-    # Encrypt the random word using underscores
-    for x in random_word:
-        guesses.append("_")
-    
-    while attempts_left > 0:
-        print_hangman()
-        print_info_about_hidden_word()
-        user_letter = get_user_letter()
-            
-        if user_letter in random_word:
-            for x in range(len(random_word)):
-                if random_word[x] == user_letter:
-                    guesses[x] = user_letter
-            print(f"Correct! There's letter '{user_letter}' in this word!")
-            if "_" not in guesses:
-                print(f"\nCONGRATULATIONS {username}, YOU WON!")
-                print(f"THE WORD WAS {random_word}!")
-                update_score()              
-                print(f"YOUR TOTAL SCORE: {new_score} point(s)!")
-                start_menu() 
-        else: 
-            attempts_left -= 1
-            wrong += 1
-            print(f"Sorry, there's no letter '{user_letter}' in this word!")
-
-    if wrong == 6:
-        print_hangman()
-        print(f"\n{username}, YOU LOST! THE WORD WAS {random_word}!")
-        start_menu() 
-    
-def start_menu():
-    """
-    Main menu, where the user can select what wants to do: 
-    (start the game, check the leaderboard or change a user)
-    """
-    while True:
-        print(f"\n{username}, TO CONTINUE PLEASE ENTER:")
-        print("1 - TO START A NEW GAME")
-        print("2 - TO CHECK THE LEADERBOARD")
-        print("3 - TO CHANGE A USER")
-        start_input = input("")
-        if start_input == "1":
-            game()
-            break
-        elif start_input == "2":
-            print_leaderboard()
-            break
-        elif start_input == "3":
-            main()
-        else:
-            print("\nPlease enter the correct input!")
-            start_menu()
-
 def data_reset():
     """
     Reset the data before a new game.
@@ -236,45 +268,14 @@ def data_reset():
     guesses = []
     attempts_left = 6
     wrong = 0
-    used_letters = []
+    used_letters = [] 
 
-def get_user_name():
-    """
-    Get user name and record it in the sheet, 
-    if there is no such name yet.
-    """
-    global username
-    
-    username = input("\nPlease enter your name: \n").upper()
-    name_column = scores_sheet.col_values(1)
-    
-    # Check if such a name exists in the game database 
-    if username in name_column:
-        # If this name has already been used before, offer to continue the game progress
-        print(f"\nName '{username}' is already exists. Do you want to continue the progress? (Y/N)")
-        while True:
-            user_choice = input("").upper()
-            if user_choice == "Y":
-                start_menu()
-                break
-            if user_choice == "N":
-                get_user_name()
-                break
-            else:
-                print("To make choice, enter 'Y' or 'N'!")
-                continue
-    else:
-        # Add this username to the game database
-        scores_sheet.append_row([username,0])
-    return username
-
-def update_score():
+def update_score(username):
     """
     Get the score from the sheet and 
     update score when the user guessed the word.
     """
-    global name_column, score_column, new_score
-    
+      
     # Get the existing data about the player from the game database
     name_column = scores_sheet.col_values(1)
     score_column = scores_sheet.col_values(2)
@@ -284,8 +285,10 @@ def update_score():
     # Update scores in the gama database
     new_score = current_score + 1  
     scores_sheet.update_cell(user_index, 2, str(new_score))
+    
+    return new_score
 
-def print_leaderboard():
+def print_leaderboard(username):
     """
     Print the leaderboard, sorted by decreasing scores.
     """
@@ -297,15 +300,15 @@ def print_leaderboard():
     data = [(row[0], int(row[1]) if i != 0 else row[1]) for i, row in enumerate(all_rows)]
     sorted_data = sorted(data[1:], key=lambda x: x[1], reverse=True)
     print(tabulate(sorted_data, headers=["Name", "Score"]))
-    start_menu()
+    start_menu(username)
       
 def main():
     """
     Main function to run the programm.
     """
     print_hangman_logo()   
-    print("WELCOME TO THE HANGMAN GAME!") 
-    get_user_name()
-    start_menu()
-    
+    print("WELCOME TO THE HANGMAN GAME!")  
+    username = get_user_name()
+    start_menu(username)
+   
 main()
