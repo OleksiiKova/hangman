@@ -302,7 +302,7 @@ def print_leaderboard(username):
     # Sort by decreasing points
     data = [(row[0], int(row[1]) if i != 0 else row[1]) for i, row in enumerate(all_rows)]
     sorted_data = sorted(data[1:], key=lambda x: x[1], reverse=True)
-    print(tabulate(sorted_data, headers=["Name", "Score"]))
+    print(tabulate(sorted_data, headers=["Name", "Score"], tablefmt="fancy_outline"))
     start_menu(username)
 
 def print_rules(username):
