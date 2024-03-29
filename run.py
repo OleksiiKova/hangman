@@ -89,9 +89,10 @@ def start_menu(username):
     """
     while True:
         print(f"\n{username}, TO CONTINUE PLEASE ENTER:")
-        print("1 - TO START A NEW GAME")
-        print("2 - TO CHECK THE LEADERBOARD")
-        print("3 - TO CHANGE A USER")
+        print("1 - START A NEW GAME")
+        print("2 - CHECK THE LEADERBOARD")
+        print("3 - CHANGE A USER")
+        print("4 - READ THE RULES")
         start_input = input("")
         if start_input == "1":
             game(username, guesses, attempts_left, wrong, random_word)
@@ -101,6 +102,8 @@ def start_menu(username):
             break
         elif start_input == "3":
             main()
+        elif start_input == "4":
+            print_rules(username)
         else:
             print("\nPlease enter the correct input!")
             start_menu(username)    
@@ -300,6 +303,32 @@ def print_leaderboard(username):
     data = [(row[0], int(row[1]) if i != 0 else row[1]) for i, row in enumerate(all_rows)]
     sorted_data = sorted(data[1:], key=lambda x: x[1], reverse=True)
     print(tabulate(sorted_data, headers=["Name", "Score"]))
+    start_menu(username)
+
+def print_rules(username):
+    rules = """
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                                                                                     *
+*      Rules of the Hangman game:                                                                                                         *
+*   1. The objective of the game is to guess the secret word by guessing individual letters.                          *
+*   2. The secret word is displayed to the player(s) as a series of underscores, each representing                    *
+*      a letter in the word. For example, "_ _ _ _ _" for a 5-letter word.                                            *
+*   3. The secret word can be on a different themes. The topic displayed under the gallows. For example,              *
+*      "The hidden word is fruit!".                                                                                   *
+*   4. Guessing:                                                                                                      *
+*      - The player(s) guess one letter at a time.                                                                    *
+*      - If the guessed letter is in the secret word, all occurrences of that letter are revealed in the word.        *
+*      - If the guessed letter is not in the secret word, a part of the hangman is drawn (representing                *
+*      a wrong guess), and the player loses one attempt.                                                              *
+*   5. The player has 6 attempts to guess the entire word.1 This is represented by the drawing of a hangman.          *
+*      Once the hangman is complete (after 6 incorrect guesses), the game is over.                                    *
+*   6. The player wins if they successfully guess all the letters in the secret word before running out of attempts.  *
+*   7. The player loses if they run out of attempts before guessing the entire word and the hangman is fully drawn.   *
+*   8. After the game ends, the player(s) may have the option to play again with a new word.                          *
+*                                                                                                                     *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+"""
+    print(rules)
     start_menu(username)
       
 def main():
