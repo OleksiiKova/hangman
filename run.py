@@ -308,31 +308,22 @@ def print_leaderboard(username):
 def print_rules(username):
     rules = """
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-*                                                                         *
 *     Rules of the Hangman game:                                          *
-*  1. The objective of the game is to guess the secret word by guessing   *
-*     individual letters.                                                 *
-*  2. The secret word is displayed to the player(s) as a series of        *
-*     underscores, each representing a letter in the word.                *
-*     For example, "_ _ _ _ _" for a 5-letter word.                       *
+*  1. The objective of the game is to guess the secret word               *
+*  2. The secret word is displayed as a series of underscores, each       *
+*     representing a letter in the word.                                  *
 *  3. The secret word can be on a different themes. The topic displayed   *
 *     under the gallows. For example: "The hidden word is fruit!".        *
-*  4. Guessing:                                                           *
-*     - The player(s) guess one letter at a time.                         *
-*     - If the guessed letter is in the secret word, all occurrences      *
-*       of that letter are revealed in the word.                          *
-*     - If the guessed letter is not in the secret word, a part of the    *
-*       hangman is drawn and the player loses one attempt.                *
+*  4. The player guess one letter at a time. If the guessed letter is     *
+*     in the secret word, all occurrences of that letter are revealed in  *
+*     the word. Otherwise, a part of the hangman is drawn and the player  *
+*     loses one attempt.                                                  *
 *  5. The player has 6 attempts to guess the entire word.                 *
 *  6. The player wins if they successfully guess all the letters in the   *
 *     secret word before running out of attempts.                         *
-*  7. The player loses if they run out of attempts before guessing the    *
-*     entire word and the hangman is fully drawn.                         *
-*  8. After the game ends, the player(s) may have the option to play      *
+*  7. After the game ends, the player may have the option to play         *
 * again with a new word.                                                  *
-*                                                                         *
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-"""
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
     print(rules)
     start_menu(username)
       
