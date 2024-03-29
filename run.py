@@ -322,7 +322,7 @@ def print_rules(username):
 *  6. The player wins if they successfully guess all the letters in the   *
 *     secret word before running out of attempts.                         *
 *  7. After the game ends, the player may have the option to play         *
-* again with a new word.                                                  *
+*     again with a new word.                                              *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
     print(rules)
     start_menu(username)
