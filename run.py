@@ -91,8 +91,8 @@ def start_menu(username):
         print(f"\n{username}, TO CONTINUE PLEASE ENTER:")
         print("1 - START A NEW GAME")
         print("2 - CHECK THE LEADERBOARD")
-        print("3 - CHANGE A USER")
-        print("4 - READ THE RULES")
+        print("3 - READ THE RULES")
+        print("4 - CHANGE A USER")
         start_input = input("")
         if start_input == "1":
             game(username, guesses, attempts_left, wrong, random_word)
@@ -101,9 +101,11 @@ def start_menu(username):
             print_leaderboard(username)
             break
         elif start_input == "3":
-            main()
-        elif start_input == "4":
             print_rules(username)
+            break
+        elif start_input == "4":
+            main()
+            break
         else:
             print("\nPlease enter the correct input!")
             start_menu(username)    

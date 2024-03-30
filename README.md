@@ -21,21 +21,35 @@ The program verifies if there is a player with the same name already registered.
 
 ![CheckName](readme_images/check_name.png)
 
+### Menu
+
+After entering a name, the user is presented with a selection of further actions. He can start the game, view the leaderboard, read the rules, or change the username.
+
+![Menu](readme_images/menu.png)
+
+### Game
+
+The secret word may relate to such topics: fruit, vegetable, animal, country, occupation and color. The topic displayed under the gallows. Underneath the user can see the underscores where the letters will populate with correct guesses and below this is where they will see the number of how many guesses left.
+
+![Game](readme_images/game.png)
+
+### Leaderboard
+
+Users can check the game's leaderboard to see their position among other participants.
+
+![Leaderboard](readme_images/leaderboard.png)
+
+### Finish game
+
+On completion of the game, win or lose, the user is given the start menu options.
+
+![Finish](/readme_images/game_over.png)
+
 ### Rules of the game
 
 If the user is not familiar with the rules of the game, he can read them by selecting the required menu item.
 
 ![Rules](readme_images/rules.png)
-
-### Leaderboard
-
-User can check the game's leaderboard to see their position among other participants.
-
-![Leaderboard](/readme_images/leaderboard.png)
-
-### Game
-
-![Game](/readme_images/game.png)
 
 ## Reminders
 
