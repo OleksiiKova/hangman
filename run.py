@@ -15,18 +15,40 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('hangman')
 
 list_of_words = {
-    "fruit": ["Apple", "Banana", "Orange", "Pineapple", "Strawberry", "Watermelon", "Mango", "Grape", "Cherry", "Kiwi", 
-                    "Lemon", "Peach", "Pear", "Raspberry", "Blueberry"],
-    "vegetable": ["Carrot", "Potato", "Tomato", "Cucumber", "Broccoli", 
-                    "Spinach", "Lettuce", "Pepper", "Onion", "Garlic", "Cauliflower", "Zucchini", "Eggplant", "Pumpkin", "Radish"],
-    "animal": ["Elephant", "Tiger", "Giraffe", "Lion", "Zebra", "Kangaroo", "Monkey", "Penguin", "Panda", "Dolphin",
-                    "Koala", "Hippo", "Cheetah", "Squirrel", "Crocodile","Ostrich", "Gorilla", "Rhinoceros", "Jaguar", "Buffalo"],
-    "country": ["Canada", "Brazil", "Italy", "Australia", "Japan", "Mexico", "Russia", "France", "India", "Spain",
-                    "China", "Germany", "Argentina", "Egypt", "Thailand", "Greece", "Vietnam", "Turkey", "Nigeria"],
-    "occupation": ["Doctor", "Teacher", "Engineer", "Artist", "Chef", "Pilot", "Scientist", "Musician", "Actor", "Lawyer",
-                    "Nurse", "Architect", "Writer", "Dentist", "Journalist", "Programmer", "Photographer", "Veterinarian", "Firefighter", "Banker"],
-    "colour": ["Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Pink", "Black", "White", "Brown",
-                    "Gray", "Beige", "Cyan", "Magenta", "Teal", "Turquoise", "Lavender", "Maroon", "Indigo", "Violet"]
+    "fruit": [
+        "Apple", "Banana", "Orange", "Pineapple", "Strawberry",
+        "Watermelon", "Mango", "Grape", "Cherry", "Kiwi", "Lemon",
+        "Peach", "Pear", "Raspberry", "Blueberry"
+    ],
+    "vegetable": [
+        "Carrot", "Potato", "Tomato", "Cucumber", "Broccoli",
+        "Spinach", "Lettuce", "Pepper", "Onion", "Garlic",
+        "Cauliflower", "Zucchini", "Eggplant", "Pumpkin", "Radish"
+    ],
+    "animal": [
+        "Elephant", "Tiger", "Giraffe", "Lion", "Zebra", "Kangaroo",
+        "Monkey", "Penguin", "Panda", "Dolphin", "Koala", "Hippo",
+        "Cheetah", "Squirrel", "Crocodile", "Ostrich", "Gorilla",
+        "Rhinoceros", "Jaguar", "Buffalo"
+    ],
+    "country": [
+        "Canada", "Brazil", "Italy", "Australia", "Japan", "Mexico",
+        "Russia", "France", "India", "Spain", "China", "Germany",
+        "Argentina", "Egypt", "Thailand", "Greece", "Vietnam",
+        "Turkey", "Nigeria"
+    ],
+    "occupation": [
+        "Doctor", "Teacher", "Engineer", "Artist", "Chef", "Pilot",
+        "Scientist", "Musician", "Actor", "Lawyer", "Nurse",
+        "Architect", "Writer", "Dentist", "Journalist",
+        "Programmer", "Photographer", "Veterinarian", "Firefighter",
+        "Banker"
+    ],
+    "colour": [
+        "Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Pink",
+        "Black", "White", "Brown", "Gray", "Beige", "Cyan", "Magenta",
+        "Teal", "Turquoise", "Lavender", "Maroon", "Indigo", "Violet"
+    ]
 }
 
 scores_sheet = SHEET.worksheet('scores')
@@ -34,38 +56,42 @@ guesses = []
 attempts_left = 6
 wrong = 0
 used_letters = []
-random_theme = random.choice(list(list_of_words.keys())) 
+random_theme = random.choice(list(list_of_words.keys()))
 random_word = random.choice(list_of_words[random_theme]).upper()
+
 
 def print_hangman_logo():
     """
     Print hangman logo when the game starts.
     """
-    logo = """
-  _    _                                         
- | |  | |                                        
- | |__| | __ _ _ __   __ _ _ __ ___   __ _ _ __  
- |  __  |/ _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ 
- | |  | | (_| | | | | (_| | | | | | | (_| | | | |
- |_|  |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
-                      __/ |                      
-                     |___/   
+    logo = r"""
+_    _
+| |  | |
+| |__| | __ _ _ __   __ _ _ __ ___   __ _ _ __
+|  __  |/ _` | '_ \ / _` | '_ ` _ \ / _` | '_ \
+| |  | | (_| | | | | (_| | | | | | | (_| | | | |
+|_|  |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
+                    __/ |
+                    |___/
     """
     print(logo)
+
 
 def get_user_name():
     """
     Retrieve the user's name and record it in the sheet
     if it doesn't exist yet.
     """
-    
+
     username = input("\nPlease enter your name: \n").upper()
-    
+
     # Check if such a name exists in the game database
-    name_column = scores_sheet.col_values(1) 
+    name_column = scores_sheet.col_values(1)
     if username in name_column:
-        # If this name has already been used before, offer to continue the game progress
-        print(f"\nName '{username}' is already exists. Do you want to continue the progress? (Y/N)")
+        # If this name has already been used before,
+        # offer to continue the game progress
+        print(f"\nName '{username}' is already exists. "
+              f"Do you want to continue the progress? (Y/N)")
         while True:
             user_choice = input("").upper()
             if user_choice == "Y":
@@ -78,13 +104,15 @@ def get_user_name():
                 print("To make choice, enter 'Y' or 'N'!")
                 continue
     else:
-        # If this name has not been used before, add this username to the game database
-        scores_sheet.append_row([username,0])
+        # If this name has not been used before, add this username
+        # to the game database
+        scores_sheet.append_row([username, 0])
     return username
+
 
 def start_menu(username):
     """
-    Main menu, where the user can select what wants to do: 
+    Main menu, where the user can select what wants to do:
     (start the game, check the leaderboard or change a user)
     """
     while True:
@@ -108,49 +136,51 @@ def start_menu(username):
             break
         else:
             print("\nPlease enter the correct input!")
-            start_menu(username)    
+            start_menu(username)
+
 
 def game(username, guesses, attempts_left, wrong, random_word):
     """
     Start the Hangman game.
-    """    
+    """
     # Encrypt the random word using underscores
     for x in random_word:
         guesses.append("_")
-    
+
     while attempts_left > 0:
         print_hangman(wrong)
         print_info_about_hidden_word(guesses, random_theme, attempts_left)
         user_letter = get_user_letter(used_letters)
-        
-        # If the entered letter is in the hidden word    
+
+        # If the entered letter is in the hidden word
         if user_letter in random_word:
             for x in range(len(random_word)):
                 if random_word[x] == user_letter:
                     guesses[x] = user_letter
             print(f"Correct! There's letter '{user_letter}' in this word!")
-            
+
             # Check if all letters in the hidden are open
             if "_" not in guesses:
                 print(f"\nCONGRATULATIONS {username}, YOU WON!")
                 print(f"THE WORD WAS {random_word}!")
-                new_score = update_score(username)             
+                new_score = update_score(username)
                 print(f"YOUR TOTAL SCORE: {new_score} point(s)!")
                 data_reset()
                 start_menu(username)
-        
-        # If the entered letter isn't in the hidden word           
-        else: 
+
+        # If the entered letter isn't in the hidden word
+        else:
             attempts_left -= 1
             wrong += 1
             print(f"Sorry, there's no letter '{user_letter}' in this word!")
-            
+
     # If all attempts are exhausted the game ends
     if wrong == 6:
         print_hangman(wrong)
         print(f"\n{username}, YOU LOST! THE WORD WAS {random_word}!")
         data_reset()
-        start_menu(username) 
+        start_menu(username)
+
 
 def get_user_letter(used_letters):
     """
@@ -169,18 +199,20 @@ def get_user_letter(used_letters):
             elif len(user_input) != 1:
                 raise ValueError("Please enter just one letter!")
             else:
-                # If the conditions above are met, add the letter to the list of already entered letters
+                # If the conditions above are met, add the letter to the
+                # list of already entered letters
                 used_letters.append(user_input)
                 return user_input
         except ValueError as e:
             print(f"\n{e}")
+
 
 def print_hangman(wrong):
     """
     Print hangman depending on the number of wrong answers.
     """
     print("----------------------------")
-    if(wrong == 0):
+    if (wrong == 0):
         print("      ┍——————┑   ")
         print("      |      |   ")
         print("      |          ")
@@ -188,26 +220,26 @@ def print_hangman(wrong):
         print("      |          ")
         print("      |          ")
         print("      |          ")
-        print("     /|\         ")
-    elif(wrong == 1):
-        print("      ┍——————┑   ")
-        print("      |      |   ")
-        print("      |      O   ")
-        print("      |          ")
-        print("      |          ")
-        print("      |          ")
-        print("      |          ")
-        print("     /|\         ")
-    elif(wrong == 2):
+        print("     /|\\        ")
+    elif (wrong == 1):
         print("      ┍——————┑   ")
         print("      |      |   ")
         print("      |      O   ")
+        print("      |          ")
+        print("      |          ")
+        print("      |          ")
+        print("      |          ")
+        print("     /|\\        ")
+    elif (wrong == 2):
+        print("      ┍——————┑   ")
+        print("      |      |   ")
+        print("      |      O   ")
         print("      |      |   ")
         print("      |      |   ")
         print("      |          ")
         print("      |          ")
-        print("     /|\         ")
-    elif(wrong == 3):
+        print("     /|\\        ")
+    elif (wrong == 3):
         print("      ┍——————┑   ")
         print("      |      |   ")
         print("      |      O   ")
@@ -215,8 +247,8 @@ def print_hangman(wrong):
         print("      |      |   ")
         print("      |          ")
         print("      |          ")
-        print("     /|\         ")
-    elif(wrong == 4):
+        print("     /|\\        ")
+    elif (wrong == 4):
         print("      ┍——————┑   ")
         print("      |      |   ")
         print("      |      O   ")
@@ -224,8 +256,8 @@ def print_hangman(wrong):
         print("      |      |   ")
         print("      |          ")
         print("      |          ")
-        print("     /|\         ")
-    elif(wrong == 5):
+        print("     /|\\        ")
+    elif (wrong == 5):
         print("      ┍——————┑   ")
         print("      |      |   ")
         print("      |      O   ")
@@ -233,8 +265,8 @@ def print_hangman(wrong):
         print("      |      |   ")
         print("      |     /    ")
         print("      |          ")
-        print("     /|\         ")
-    elif(wrong == 6):
+        print("     /|\\        ")
+    elif (wrong == 6):
         print("      ┍——————┑   ")
         print("      |      |   ")
         print("      |      O   ")
@@ -242,54 +274,59 @@ def print_hangman(wrong):
         print("      |      |   ")
         print("      |     / \\ ")
         print("      |          ")
-        print("     /|\         ")
-        
+        print("     /|\\        ")
+
+
 def print_info_about_hidden_word(guesses, random_theme, attempts_left):
     """
-    Print message about hidden word: 
+    Print message about hidden word:
     topic, quantity underscores, attemts left.
     """
     # What topic the word relates to
     print(f"The hidden word is {random_theme}!")
-    
+
     # How many underscores need to print
     print("Word: ", end='')
     for element in guesses:
         print(f"{element} ", end='')
-        
+
     # How many attemts left
-    print(f"\nYou have {attempts_left} guess(es) left.")           
-    
+    print(f"\nYou have {attempts_left} guess(es) left.")
+
+
 def data_reset():
     """
     Reset the data before a new game.
     """
-    global guesses, attempts_left, wrong, used_letters, random_word, random_theme
-    
-    random_theme = random.choice(list(list_of_words.keys())) 
+    global guesses, attempts_left, wrong, used_letters, random_word
+    global random_theme
+
+    random_theme = random.choice(list(list_of_words.keys()))
     random_word = random.choice(list_of_words[random_theme]).upper()
     guesses = []
     attempts_left = 6
     wrong = 0
-    used_letters = [] 
+    used_letters = []
+
 
 def update_score(username):
     """
-    Get the score from the sheet and 
+    Get the score from the sheet and
     update score when the user guessed the word.
     """
-      
+
     # Get the existing data about the player from the game database
     name_column = scores_sheet.col_values(1)
     score_column = scores_sheet.col_values(2)
     user_index = name_column.index(username) + 1
     current_score = int(score_column[user_index - 1])
-    
+
     # Update scores in the gama database
-    new_score = current_score + 1  
+    new_score = current_score + 1
     scores_sheet.update_cell(user_index, 2, str(new_score))
-    
+
     return new_score
+
 
 def print_leaderboard(username):
     """
@@ -298,12 +335,15 @@ def print_leaderboard(username):
     print("")
     # Get all the data from the game database sheet
     all_rows = scores_sheet.get_all_values()
-    
+
     # Sort by decreasing points
-    data = [(row[0], int(row[1]) if i != 0 else row[1]) for i, row in enumerate(all_rows)]
+    data = [(row[0], int(row[1]) if i != 0 else row[1]) for i,
+            row in enumerate(all_rows)]
     sorted_data = sorted(data[1:], key=lambda x: x[1], reverse=True)
-    print(tabulate(sorted_data, headers=["Name", "Score"], tablefmt="fancy_outline"))
+    print(tabulate(sorted_data, headers=["Name", "Score"],
+                   tablefmt="fancy_outline"))
     start_menu(username)
+
 
 def print_rules(username):
     rules = """
@@ -323,17 +363,20 @@ def print_rules(username):
 *     secret word before running out of attempts.                         *
 *  7. After the game ends, the player may have the option to play         *
 *     again with a new word.                                              *
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+"""
     print(rules)
     start_menu(username)
-      
+
+
 def main():
     """
     Main function to run the programm.
     """
-    print_hangman_logo()   
-    print("WELCOME TO THE HANGMAN GAME!")  
+    print_hangman_logo()
+    print("WELCOME TO THE HANGMAN GAME!")
     username = get_user_name()
     start_menu(username)
-   
+
+
 main()
