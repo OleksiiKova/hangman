@@ -114,8 +114,6 @@ def game(username, guesses, attempts_left, wrong, random_word):
     """
     Start the Hangman game.
     """    
-    print(random_word)
-    
     # Encrypt the random word using underscores
     for x in random_word:
         guesses.append("_")

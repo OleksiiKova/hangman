@@ -43,13 +43,36 @@ Users can check the game's leaderboard to see their position among other partici
 
 On completion of the game, win or lose, the user is given the start menu options.
 
-![Finish](/readme_images/game_over.png)
+![Win](readme_images/win.png)
+
+![Finish](readme_images/game_over.png)
 
 ### Rules of the game
 
 If the user is not familiar with the rules of the game, he can read them by selecting the required menu item.
 
 ![Rules](readme_images/rules.png)
+
+## Testing
+
+### Manual testing
+
+| Feature tested                                          | Expected outcome                                                                                                                                      | Actual outcome |
+| ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| Enter name.                                             | The program verifies if there is a player with the same name already registered. If found, it prompts whether you would like to resume your progress. | As expected.   |
+| In the start menu enter not 1, 2, 3 or 4.               | The message appears: "Please enter the correct input                                                                                                  | As expected.   |
+| In the start menu enter 1.                              | The game starts.                                                                                                                                      | As expected.   |
+| In the start menu enter 2.                              | Print the actual leaderboard.                                                                                                                         | As expected.   |
+| In the start menu enter 3.                              | Print the rules.                                                                                                                                      | As expected.   |
+| In the start menu enter 4.                              | Print enter your name.                                                                                                                                | As expected.   |
+| In the game enter a number or symbol.                   | The message appears: "That's not a letter!" and ask again to enter the letter.                                                                        | As expected.   |
+| In the game enter several letters.                      | The message appears: "Please enter just one letter!" and ask again to enter the letter.                                                               | As expected.   |
+| In the game enter letter that has already been entered. | The message appears: "You've already entered this letter!" and ask again to enter the letter.                                                         | As expected.   |
+| Enter letter which is in the secret word. | The letter(s) appears instead of an underscore(s).| As expected. |
+| Enter letter which is not in the secret word. | A part of the hangman is drawn and the player loses one attempt. | As expected. |
+| After 6 incorrect guesses.| The drawing is completely ready and the game ends. You lose. | As expected. |
+| If there are no more underscores left. | The game ends, you won. The player's score increases by 1. | As expected. |
+
 
 ## Reminders
 
