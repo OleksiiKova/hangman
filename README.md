@@ -4,9 +4,7 @@ Hangman is a popular game that was played with pen and paper before the era of c
 
 ![logo](readme_images/logo.png)
 
-Link for [Hangman Game](https://hangman-game-2024-352e05fc66fb.herokuapp.com/)
-
-![mockup](/readme_images/mockup.png)
+Link for [Hangman Game](https://hangman-game-2024-352e05fc66fb.herokuapp.com/).
 
 ## Project Goals
 
