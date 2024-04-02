@@ -131,15 +131,19 @@ def start_menu(username):
         print("4 - CHANGE A USER")
         start_input = input("")
         if start_input == "1":
+            clear_terminal()
             game(username, guesses, attempts_left, wrong, random_word)
             break
         elif start_input == "2":
+            clear_terminal()
             print_leaderboard(username)
             break
         elif start_input == "3":
+            clear_terminal()
             print_rules(username)
             break
         elif start_input == "4":
+            clear_terminal()
             main()
             break
         else:
@@ -363,7 +367,6 @@ def print_rules(username):
     """
     Print rules of the game
     """
-    clear_terminal()
     rules = """
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 *     Rules of the Hangman game:                                          *
@@ -383,7 +386,6 @@ def print_rules(username):
 *     again with a new word.                                              *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 """
-    print()
     print(rules)
     start_menu(username)
 

@@ -2,6 +2,24 @@
 
 Hangman is a popular game that was played with pen and paper before the era of computer technology. Now this is also possible thanks to the use of digital implementations on computers and mobile devices. It's a fun way to test vocabulary, spelling, and deduction skills.
 
+![logo](readme_images/logo.png)
+
+## Project Goals
+
+The goal of the Hangman game, like most games, is to entertain the player and provide them with an engaging gaming experience. In the case of Hangman, it is a classic game where the player must guess the word chosen by the computer by sequentially guessing letters.
+
+The main objectives of the Hangman game may include:
+
+1. Entertainment: Providing players with the opportunity to have fun and enjoy their time. Hangman can be an enjoyable game that helps players distract themselves from everyday worries and enjoy the gaming process.
+
+2. Enhancing Intellectual Skills: The game of Hangman can help players develop and improve their lexical and logical skills. Guessing letters and guessing the word requires analysis and decision-making based on the available information.
+
+3. Competition: The game may involve an element of competition, especially if it allows players to compare their results with others. This can encourage players to improve their skills and achieve higher scores.
+
+4. Building Bonds: Hangman can be a great game for family or friends to enjoy together, fostering stronger bonds among participants. Discussing the guessed words and hints can be a source of laughter and conversation.
+
+Overall, the goal of the Hangman game is to create an engaging and entertaining experience for players that brings them enjoyment and positive emotions.
+
 ## Technologies
 
 1. lucid.app - to create a flowchart.
@@ -31,7 +49,7 @@ A successful guess incurs no penalty. An unsuccessful guess results in another s
 
 ### Skeleton
 
-To create a flowchart I used lucid.app. 
+To create a flowchart I used lucid.app.
 
 ![Flowchart](readme_images/Flowchart.png)
 
@@ -111,20 +129,38 @@ I validated my run.py file using Code Institute's Python Linter.
 
 ### Fixed bugs
 
-## Reminders
+## Deployment
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
+### Create Repository
 
-## Creating the Heroku app
+1. Link to the [Python Essentials Template](https://github.com/Code-Institute-Org/p3-template).
+2. Click green button "Use this template", then "Create a new repository".
+3. Enter repository name and click "Create repository".
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+### Clone my repository from GitHub to VSCode
 
-1. `heroku/python`
-2. `heroku/nodejs`
+1. Click green button "<> Code" in the my repository on GitHub.
+2. On the "HTTPS" tab, click on the clipboard icon to copy the URL.
+3. In the VSCode app enter CTRL+SHIFT+G, then click "Clone repository" and paste the link.
+4. Throughout development I used such git commands:
+   - git add: to add the file(s) to the staging area before they are committed;
+   - git commit -m “commit message”: to commit changes to the local repository queue, ready for the final step;
+   - git push: to push all committed code to the remote repository on GitHub.
 
-Then create a _Config Var_ called `PORT`. Set this to `8000`
+### Creating the Heroku app
 
-Create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+This project was deployed using Code Institute's mock terminal for Heroku. Below are the steps I followed to be able to deploy the terminal to the website:
 
-Connect your GitHub repository and deploy as normal.
+1. Create a new Heroku app on the Heroku website.
+2. Create config vars:
+   - on the _Settings_ tab click "Reveal Config Vars";
+   - in the field for key enter "CREDS", all capital letters;
+   - copy the entire creds.json file from our workspace and paste it into the value field;
+   - click “Add”;
+   - add another config var, key "PORT" and set this to "8000".
+3. Add two buildpacks from the _Settings_ tab. The ordering is as follows:
+   - `heroku/python`
+   - `heroku/nodejs`
+4. Connect the Heroku app to the repository on GitHub.
+5. Enter the name repository, click Search and click Connect.
+6. Click Deploy Branch.
