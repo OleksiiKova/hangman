@@ -1,3 +1,4 @@
+import os
 import random
 import gspread
 from google.oauth2.service_account import Credentials
@@ -58,6 +59,13 @@ wrong = 0
 used_letters = []
 random_theme = random.choice(list(list_of_words.keys()))
 random_word = random.choice(list_of_words[random_theme]).upper()
+
+
+def clear_terminal():
+    """
+    Clear the terminal to prevent clutter on it.
+    """
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def print_hangman_logo():
@@ -144,6 +152,8 @@ def game(username, guesses, attempts_left, wrong, random_word):
     Start the Hangman game.
     """
     # Encrypt the random word using underscores
+    clear_terminal()
+
     for x in random_word:
         guesses.append("_")
 
@@ -157,6 +167,7 @@ def game(username, guesses, attempts_left, wrong, random_word):
             for x in range(len(random_word)):
                 if random_word[x] == user_letter:
                     guesses[x] = user_letter
+            clear_terminal()
             print(f"Correct! There's letter '{user_letter}' in this word!")
 
             # Check if all letters in the hidden are open
@@ -172,6 +183,7 @@ def game(username, guesses, attempts_left, wrong, random_word):
         else:
             attempts_left -= 1
             wrong += 1
+            clear_terminal()
             print(f"Sorry, there's no letter '{user_letter}' in this word!")
 
     # If all attempts are exhausted the game ends
@@ -332,7 +344,8 @@ def print_leaderboard(username):
     """
     Print the leaderboard, sorted by decreasing scores.
     """
-    print("")
+    clear_terminal()
+    print("The leaderboard")
     # Get all the data from the game database sheet
     all_rows = scores_sheet.get_all_values()
 
@@ -346,6 +359,10 @@ def print_leaderboard(username):
 
 
 def print_rules(username):
+    """
+    Print rules of the game
+    """
+    clear_terminal()
     rules = """
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 *     Rules of the Hangman game:                                          *

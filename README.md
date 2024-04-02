@@ -9,6 +9,34 @@ Hangman is a popular game that was played with pen and paper before the era of c
 3. GitHub - to store the project's code.
 4. Heroku - to deploy my application.
 
+## UX
+
+### Strategy
+
+1. Simplicity: The primary strategy for Hangman is to keep the game simple and intuitive. Users should be able to understand the rules and gameplay mechanics without needing extensive instructions.
+2. Engagement: The game has been designed to keep players engaged and entertained throughout the entire gaming session.
+3. Accessibility: Hangman is accessible to a wide range of players, including those with varying levels of gaming experience and abilities. This means designing the game interface with clear and easy-to-understand elements.
+4. Feedback: Providing feedback to the player is crucial for a good user experience. The game should give clear feedback on each action taken by the player, such as whether their guess was correct or incorrect.
+
+### Scope
+
+1. Gameplay Mechanics: The core gameplay mechanics of Hangman involve guessing letters to uncover a hidden word. The scope of the game includes implementing these mechanics in a user-friendly and enjoyable manner.
+2. The visual design of Hangman encompasses elements such as the gallows and the hidden word. The scope includes creating visually appealing and thematic assets that enhance the overall experience.
+
+### Structure
+
+
+When the game begins, all that is known of the mystery word is the number of letters and . A guess involves suggesting a letter. When a guess is correct all occurrences of the suggested letter are revealed.
+A successful guess incurs no penalty. An unsuccessful guess results in another stroke being added to the hanged man drawing
+
+### Skeleton
+
+To create a flowchart I used lucid.app. The PDF file with my flowchart can be found [here](readme_images/Flowchart%20.pdf)
+
+### Surface
+
+Due to this program being built for terminal use, there was not much design. I used basic keyboard letters and symbols for my gallow and hangman.
+
 ## Features
 
 ### Welcome block
@@ -68,17 +96,23 @@ If the user is not familiar with the rules of the game, he can read them by sele
 | In the game enter a number or symbol.                   | The message appears: "That's not a letter!" and ask again to enter the letter.                                                                        | As expected.   |
 | In the game enter several letters.                      | The message appears: "Please enter just one letter!" and ask again to enter the letter.                                                               | As expected.   |
 | In the game enter letter that has already been entered. | The message appears: "You've already entered this letter!" and ask again to enter the letter.                                                         | As expected.   |
-| Enter letter which is in the secret word. | The letter(s) appears instead of an underscore(s).| As expected. |
-| Enter letter which is not in the secret word. | A part of the hangman is drawn and the player loses one attempt. | As expected. |
-| After 6 incorrect guesses.| The drawing is completely ready and the game ends. You lose. | As expected. |
-| If there are no more underscores left. | The game ends, you won. The player's score increases by 1. | As expected. |
+| Enter letter which is in the secret word.               | The letter(s) appears instead of an underscore(s).                                                                                                    | As expected.   |
+| Enter letter which is not in the secret word.           | A part of the hangman is drawn and the player loses one attempt.                                                                                      | As expected.   |
+| After 6 incorrect guesses.                              | The drawing is completely ready and the game ends. You lose.                                                                                          | As expected.   |
+| If there are no more underscores left.                  | The game ends, you won. The player's score increases by 1.                                                                                            | As expected.   |
 
+### Python Validation
+
+I validated my run.py file using Code Institute's Python Linter.
+
+![Validator](readme_images/validator.png)
+
+### Fixed bugs
 
 ## Reminders
 
 - Your code must be placed in the `run.py` file
 - Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
 
 ## Creating the Heroku app
 
