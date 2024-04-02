@@ -4,6 +4,10 @@ Hangman is a popular game that was played with pen and paper before the era of c
 
 ![logo](readme_images/logo.png)
 
+Link for [Hangman Game](https://hangman-game-2024-352e05fc66fb.herokuapp.com/)
+
+![mockup](/readme_images/mockup.png)
+
 ## Project Goals
 
 The goal of the Hangman game, like most games, is to entertain the player and provide them with an engaging gaming experience. In the case of Hangman, it is a classic game where the player must guess the word chosen by the computer by sequentially guessing letters.
@@ -23,9 +27,10 @@ Overall, the goal of the Hangman game is to create an engaging and entertaining 
 ## Technologies
 
 1. lucid.app - to create a flowchart.
-2. VSCode - to write Python code.
-3. GitHub - to store the project's code.
-4. Heroku - to deploy my application.
+2. Python - programming language used for the creation of the game.
+3. VSCode - was used as the primary local IDE for coding.
+4. GitHub - to store the project's code.
+5. Heroku - to deploy my application.
 
 ## UX
 
@@ -123,11 +128,21 @@ If the user is not familiar with the rules of the game, he can read them by sele
 
 ### Python Validation
 
-I validated my run.py file using Code Institute's Python Linter.
+I validated my run.py file using [Code Institute's Python Linter](https://pep8ci.herokuapp.com/#).
 
 ![Validator](readme_images/validator.png)
 
-### Fixed bugs
+### Bugs
+
+Bugs and erros econountered during coding of project were solved through contiuned testing throught the development. Using print statements and through git terminal python3 run.py. Testing code to see what the code was doing and how it was responding as well as locating any errors that might be brought up in the problems part of git.
+When I ran my Code through the [PEP8](https://pep8ci.herokuapp.com/#) I found such syntax errors:
+
+- trailing whitespace;
+- continuation line under-indented for visual indent;
+- expected 2 blank lines, found 1;
+- line too long.
+
+All these errors have been fixed.
 
 ## Deployment
 
@@ -164,3 +179,7 @@ This project was deployed using Code Institute's mock terminal for Heroku. Below
 4. Connect the Heroku app to the repository on GitHub.
 5. Enter the name repository, click Search and click Connect.
 6. Click Deploy Branch.
+
+## Credits
+
+My first step was to watch some hangman game videos on YouTube, like this by [Shaun Halverson](https://www.youtube.com/watch?v=pFvSb7cb_Us&t=2s) or this one by [MobileDevSchool](https://www.youtube.com/watch?v=WV2zPAVRekY), to get an idea of how to set the game up. Then in preparation for my coding process, I created a flowchart to visualize the game logic. When the logic was clear, I started to code step-by-step.

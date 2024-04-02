@@ -346,14 +346,14 @@ def update_score(username):
 
 def print_leaderboard(username):
     """
-    Print the leaderboard, sorted by decreasing scores.
+    Print the leaderboard, sorted by descending scores.
     """
     clear_terminal()
     print("The leaderboard:")
     # Get all the data from the game database sheet
     all_rows = scores_sheet.get_all_values()
 
-    # Sort by decreasing points
+    # Sort by descending points
     data = [(row[0], int(row[1]) if i != 0 else row[1]) for i,
             row in enumerate(all_rows)]
     sorted_data = sorted(data[1:], key=lambda x: x[1], reverse=True)
