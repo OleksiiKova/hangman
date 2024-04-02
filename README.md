@@ -1,6 +1,6 @@
 # The Hangman
 
-Hangman is a popular game that was played with pen and paper before the era of computer technology. This is now possible thanks to the use of digital implementations on computers and mobile devices. It's a fun way to test vocabulary, spelling, and deduction skills.
+Hangman is a popular game that was played with pen and paper before the era of computer technology. Now this is also possible thanks to the use of digital implementations on computers and mobile devices. It's a fun way to test vocabulary, spelling, and deduction skills.
 
 ## Technologies
 
@@ -25,13 +25,15 @@ Hangman is a popular game that was played with pen and paper before the era of c
 
 ### Structure
 
-
-When the game begins, all that is known of the mystery word is the number of letters and . A guess involves suggesting a letter. When a guess is correct all occurrences of the suggested letter are revealed.
+Since this game works on the command line, information is displayed to the user gradually and depending on his request.
+When the game begins, all that is known of the mystery word is the number of letters and. A guess involves suggesting a letter. When a guess is correct all occurrences of the suggested letter are revealed.
 A successful guess incurs no penalty. An unsuccessful guess results in another stroke being added to the hanged man drawing
 
 ### Skeleton
 
-To create a flowchart I used lucid.app. The PDF file with my flowchart can be found [here](readme_images/Flowchart%20.pdf)
+To create a flowchart I used lucid.app. 
+
+![Flowchart](readme_images/Flowchart.png)
 
 ### Surface
 

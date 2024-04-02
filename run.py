@@ -73,13 +73,13 @@ def print_hangman_logo():
     Print hangman logo when the game starts.
     """
     logo = r"""
-_    _
+ _    _
 | |  | |
 | |__| | __ _ _ __   __ _ _ __ ___   __ _ _ __
 |  __  |/ _` | '_ \ / _` | '_ ` _ \ / _` | '_ \
 | |  | | (_| | | | | (_| | | | | | | (_| | | | |
 |_|  |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
-                    __/ |
+                     __/ |
                     |___/
     """
     print(logo)
@@ -175,7 +175,7 @@ def game(username, guesses, attempts_left, wrong, random_word):
                 print(f"\nCONGRATULATIONS {username}, YOU WON!")
                 print(f"THE WORD WAS {random_word}!")
                 new_score = update_score(username)
-                print(f"YOUR TOTAL SCORE: {new_score} point(s)!")
+                print(f"YOUR TOTAL SCORE: {new_score} point(s)!\n")
                 data_reset()
                 start_menu(username)
 
@@ -189,7 +189,7 @@ def game(username, guesses, attempts_left, wrong, random_word):
     # If all attempts are exhausted the game ends
     if wrong == 6:
         print_hangman(wrong)
-        print(f"\n{username}, YOU LOST! THE WORD WAS {random_word}!")
+        print(f"\n{username}, YOU LOST! THE WORD WAS {random_word}!\n")
         data_reset()
         start_menu(username)
 
@@ -345,7 +345,7 @@ def print_leaderboard(username):
     Print the leaderboard, sorted by decreasing scores.
     """
     clear_terminal()
-    print("The leaderboard")
+    print("The leaderboard:")
     # Get all the data from the game database sheet
     all_rows = scores_sheet.get_all_values()
 
@@ -355,6 +355,7 @@ def print_leaderboard(username):
     sorted_data = sorted(data[1:], key=lambda x: x[1], reverse=True)
     print(tabulate(sorted_data, headers=["Name", "Score"],
                    tablefmt="fancy_outline"))
+    print()
     start_menu(username)
 
 
@@ -382,6 +383,7 @@ def print_rules(username):
 *     again with a new word.                                              *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 """
+    print()
     print(rules)
     start_menu(username)
 
@@ -390,6 +392,7 @@ def main():
     """
     Main function to run the programm.
     """
+    clear_terminal()
     print_hangman_logo()
     print("WELCOME TO THE HANGMAN GAME!")
     username = get_user_name()
