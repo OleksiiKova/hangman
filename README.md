@@ -6,6 +6,33 @@ Hangman is a popular game that was played with pen and paper before the era of c
 
 Link for [Hangman Game](https://hangman-game-2024-352e05fc66fb.herokuapp.com/).
 
+## Table of Contents
+
+- [Project Goals](#project-goals)
+- [Technologies](#Technologies)
+- [UX](#UX)
+   * [Strategy](#Strategy)
+   * [Scope](#Scope)
+   * [Structure](#Structure)
+   * [Skeleton](#Skeleton)
+   * [Surface](#Surface)
+- [Features](#Features)
+   * [Welcome block](#Welcome-block)
+   * [Menu](#Menu)
+   * [Game](#Game)
+   * [Finish game](#Finish-game)
+   * [Leaderboard](#Leaderboard)
+   * [Rules of the game](#Rules-of-the-game)
+- [Testing](#Testing)
+   * [Manual testing](#Manual-testing)
+   * [Python Validation](#Python-Validation)
+   * [Bugs](#Bugs)
+- [Deployment](#Deployment)
+   * [Create Repository](#Create-Repository)
+   * [Clone my repository from GitHub to VSCode](#Clone-my-repository-from-GitHub-to-VSCode)
+   * [Creating the Heroku app](#Creating-the-Heroku-app)
+- [Credits](#Credits)
+
 ## Project Goals
 
 The goal of the Hangman game, like most games, is to entertain the player and provide them with an engaging gaming experience. In the case of Hangman, it is a classic game where the player must guess the word chosen by the computer by sequentially guessing letters.
@@ -76,7 +103,7 @@ The program verifies if there is a player with the same name already registered.
 
 After entering a name, the user is presented with a selection of further actions. He can start the game, view the leaderboard, read the rules, or change the username.
 
-![Menu](readme_images/menu.png)
+![Menu](readme_imagFinish gamees/menu.png)
 
 ### Game
 
