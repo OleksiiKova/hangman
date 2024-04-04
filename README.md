@@ -47,8 +47,8 @@ Overall, the goal of the Hangman game is to create an engaging and entertaining 
 ### Structure
 
 Since this game works on the command line, information is displayed to the user gradually and depending on his request.
-When the game begins, all that is known of the mystery word is the number of letters and. A guess involves suggesting a letter. When a guess is correct all occurrences of the suggested letter are revealed.
-A successful guess incurs no penalty. An unsuccessful guess results in another stroke being added to the hanged man drawing
+When the game begins, all that is known of the mystery word is the number of letters and the topic the word relates to. A guess involves suggesting a letter. When a guess is correct all occurrences of the suggested letter are revealed.
+A successful guess incurs no penalty. An unsuccessful guess results in another stroke being added to the hanged man drawing.
 
 ### Skeleton
 
@@ -80,15 +80,9 @@ After entering a name, the user is presented with a selection of further actions
 
 ### Game
 
-The secret word may relate to such topics: fruit, vegetable, animal, country, occupation and color. The topic displayed under the gallows. Underneath the user can see the underscores where the letters will populate with correct guesses and below this is where they will see the number of how many guesses left.
+The secret word may relate to such topics: fruit, vegetable, animal, country, occupation and colour. The topic displayed under the gallows. Underneath the user can see the underscores where the letters will populate with correct guesses and below this is where they will see the number of how many guesses left.
 
 ![Game](readme_images/game.png)
-
-### Leaderboard
-
-Users can check the game's leaderboard to see their position among other participants.
-
-![Leaderboard](readme_images/leaderboard.png)
 
 ### Finish game
 
@@ -97,6 +91,12 @@ On completion of the game, win or lose, the user is given the start menu options
 ![Win](readme_images/win.png)
 
 ![Finish](readme_images/game_over.png)
+
+### Leaderboard
+
+Users can check the game's leaderboard to see their position among other participants.
+
+![Leaderboard](readme_images/leaderboard.png)
 
 ### Rules of the game
 
@@ -132,8 +132,8 @@ I validated my run.py file using [Code Institute's Python Linter](https://pep8ci
 
 ### Bugs
 
-Bugs and erros econountered during coding of project were solved through contiuned testing throught the development. Using print statements and through git terminal python3 run.py. Testing code to see what the code was doing and how it was responding as well as locating any errors that might be brought up in the problems part of git.
-When I ran my Code through the [PEP8](https://pep8ci.herokuapp.com/#) I found such syntax errors:
+Bugs and errors encountered during the coding of the project were solved through continued testing throughout the development. Using print statements and the Git terminal with python3 run.py, I tested the code to observe its behavior, identify any errors, and address them.
+When I ran my Code through the [PEP8](https://pep8ci.herokuapp.com/#), I found such syntax errors:
 
 - trailing whitespace;
 - continuation line under-indented for visual indent;
@@ -152,7 +152,7 @@ All these errors have been fixed.
 
 ### Clone my repository from GitHub to VSCode
 
-1. Click green button "<> Code" in the my repository on GitHub.
+1. Click green button "<> Code" in my repository on GitHub.
 2. On the "HTTPS" tab, click on the clipboard icon to copy the URL.
 3. In the VSCode app enter CTRL+SHIFT+G, then click "Clone repository" and paste the link.
 4. Throughout development I used such git commands:
