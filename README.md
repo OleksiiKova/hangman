@@ -49,6 +49,8 @@ The main objectives of the Hangman game may include:
 
 Overall, the goal of the Hangman game is to create an engaging and entertaining experience for players that brings them enjoyment and positive emotions.
 
+[Back to Table of Contents](#table-of-contents)
+
 ## Technologies
 
 1. lucid.app - to create a flowchart.
@@ -56,6 +58,8 @@ Overall, the goal of the Hangman game is to create an engaging and entertaining 
 3. VSCode - was used as the primary local IDE for coding.
 4. GitHub - to store the project's code.
 5. Heroku - to deploy my application.
+
+[Back to Table of Contents](#table-of-contents)
 
 ## UX
 
@@ -86,6 +90,8 @@ To create a flowchart I used lucid.app.
 ### Surface
 
 Due to this program being built for terminal use, there was not much design. I used basic keyboard letters and symbols for my gallow and hangman.
+
+[Back to Table of Contents](#table-of-contents)
 
 ## Features
 
@@ -131,6 +137,8 @@ If the user is not familiar with the rules of the game, he can read them by sele
 
 ![Rules](readme_images/rules.png)
 
+[Back to Table of Contents](#table-of-contents)
+
 ## Testing
 
 ### Manual testing
@@ -169,6 +177,8 @@ When I ran my Code through the [PEP8](https://pep8ci.herokuapp.com/#), I found s
 
 All these errors have been fixed.
 
+[Back to Table of Contents](#table-of-contents)
+
 ## Deployment
 
 ### Create Repository
@@ -205,6 +215,10 @@ This project was deployed using Code Institute's mock terminal for Heroku. Below
 5. Enter the name repository, click Search and click Connect.
 6. Click Deploy Branch.
 
+[Back to Table of Contents](#table-of-contents)
+
 ## Credits
 
 My first step was to watch some hangman game videos on YouTube, like this by [Shaun Halverson](https://www.youtube.com/watch?v=pFvSb7cb_Us&t=2s) or this one by [MobileDevSchool](https://www.youtube.com/watch?v=WV2zPAVRekY), to get an idea of how to set the game up. Then in preparation for my coding process, I created a flowchart to visualize the game logic. When the logic was clear, I started to code step-by-step.
+
+[Back to Table of Contents](#table-of-contents)
